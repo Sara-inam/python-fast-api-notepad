@@ -1,0 +1,4 @@
+2026-01-01 15:39:04,288 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-01 15:39:09,180 - fastapi_app - INFO - Summarization successful, summary length: 83
+2026-01-01 15:40:56,842 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-01 15:40:59,424 - fastapi_app - INFO - Summarization successful, summary length: 81
