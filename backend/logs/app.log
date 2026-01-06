@@ -2,3 +2,52 @@
 2026-01-01 15:39:09,180 - fastapi_app - INFO - Summarization successful, summary length: 83
 2026-01-01 15:40:56,842 - fastapi_app - INFO - Received summarize request, text length: 23
 2026-01-01 15:40:59,424 - fastapi_app - INFO - Summarization successful, summary length: 81
+2026-01-01 17:08:41,808 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-01 17:08:44,372 - fastapi_app - INFO - Summarization successful, summary length: 81
+2026-01-01 17:12:37,213 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-01 17:12:39,272 - fastapi_app - INFO - Summarization successful, summary length: 80
+2026-01-05 12:24:59,850 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:25:03,190 - fastapi_app - INFO - Summarization successful, summary length: 79
+2026-01-05 12:25:40,638 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:29:15,070 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:30:39,609 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:32:44,517 - fastapi_app - INFO - Received summarize request, text length: 25
+2026-01-05 12:34:18,145 - fastapi_app - INFO - Received summarize request, text length: 25
+2026-01-05 12:34:28,162 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:43:10,360 - fastapi_app - INFO - Received summarize request, text length: 25
+2026-01-05 12:43:48,129 - fastapi_app - INFO - Received summarize request, text length: 25
+2026-01-05 12:43:51,130 - fastapi_app - INFO - Summarization successful, summary length: 109
+2026-01-05 12:43:58,422 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:44:01,161 - fastapi_app - INFO - Summarization successful, summary length: 74
+2026-01-05 12:49:51,965 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 12:49:54,545 - fastapi_app - INFO - Summarization successful, summary length: 79
+2026-01-05 13:21:43,652 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 13:21:46,368 - fastapi_app - INFO - Summarization successful, summary length: 80
+2026-01-05 13:34:52,979 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 13:34:55,905 - fastapi_app - INFO - Summarization successful, summary length: 68
+2026-01-05 13:38:54,341 - fastapi_app - INFO - Received summarize request, text length: 15
+2026-01-05 13:38:57,889 - fastapi_app - INFO - Summarization successful, summary length: 115
+2026-01-05 14:22:58,441 - fastapi_app - INFO - Received summarize request, text length: 33
+2026-01-05 14:23:01,692 - fastapi_app - INFO - Summarization successful, summary length: 126
+2026-01-05 14:29:48,962 - fastapi_app - INFO - Received summarize request, text length: 30
+2026-01-05 14:29:52,010 - fastapi_app - INFO - Summarization successful, summary length: 65
+2026-01-05 14:32:16,052 - fastapi_app - INFO - Received summarize request, text length: 29
+2026-01-05 14:32:19,166 - fastapi_app - INFO - Summarization successful, summary length: 63
+2026-01-05 14:32:38,354 - fastapi_app - INFO - Received summarize request, text length: 15
+2026-01-05 14:32:44,948 - fastapi_app - INFO - Received summarize request, text length: 29
+2026-01-05 15:14:59,011 - fastapi_app - INFO - Received summarize request, text length: 32
+2026-01-05 15:16:06,541 - fastapi_app - INFO - Received summarize request, text length: 32
+2026-01-05 15:22:53,398 - fastapi_app - INFO - Received summarize request, text length: 32
+2026-01-05 15:22:58,072 - fastapi_app - INFO - Summarization successful, summary length: 202
+2026-01-05 15:25:14,353 - fastapi_app - INFO - Received summarize request, text length: 23
+2026-01-05 15:25:17,129 - fastapi_app - INFO - Summarization successful, summary length: 73
+2026-01-05 15:54:50,848 - fastapi_app - INFO - Received summarize request, text length: 15
+2026-01-05 15:54:54,472 - fastapi_app - INFO - Summarization successful, summary length: 58
+2026-01-05 15:57:53,766 - fastapi_app - INFO - Received summarize request, text length: 96
+2026-01-05 15:57:56,265 - fastapi_app - INFO - Summarization successful, summary length: 115
+2026-01-05 15:58:35,204 - fastapi_app - INFO - Received summarize request, text length: 87
+2026-01-05 15:58:38,347 - fastapi_app - INFO - Summarization successful, summary length: 120
+2026-01-05 15:59:35,774 - fastapi_app - INFO - Received summarize request, text length: 74
+2026-01-05 15:59:40,189 - fastapi_app - INFO - Summarization successful, summary length: 129
+2026-01-05 17:38:28,727 - fastapi_app - INFO - Received summarize request, text length: 175
+2026-01-05 17:38:32,430 - fastapi_app - INFO - Summarization successful, summary length: 125

@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
 from app.models.note import Note
 from app.schemas.note_schemas import NoteCreate, NoteUpdate
+from app.services.summerize_service import summarize_text_and_category
+from app.crud.category_crud import assign_categories_to_note
+from app.utilis.category_utilis import split_ai_categories
 import base64
 
 def get_notes(db: Session, user_id: int):
@@ -17,19 +20,43 @@ def create_note(db: Session, note, user_id: int):
     db.add(db_note)
     db.commit()
     db.refresh(db_note)
+        # --------- ADD HERE: AI summary + category ---------
+    result = summarize_text_and_category(db_note.content)
+    db_note.summary = result.get("summary", "")
+    raw_category = result.get("category", "")
+    categories = split_ai_categories(raw_category)
+
+    if categories:
+        assign_categories_to_note(db, db_note, categories)
+    db.commit()
+    db.refresh(db_note)
+    # ---------------------------------------------------
+
     return db_note
 
+
 def update_note(db: Session, note_id: int, note: NoteUpdate, user_id: int):
-    # Add user_id filter to make sure user can only update own notes
     db_note = db.query(Note).filter(Note.id == note_id, Note.user_id == user_id).first()
     if db_note:
         if note.title is not None:
             db_note.title = note.title
         if note.content is not None:
             db_note.content = note.content
+
+        # --------- ADD HERE: AI summary + category ---------
+        result = summarize_text_and_category(db_note.content)
+        db_note.summary = result.get("summary", "")
+        raw_category = result.get("category", "")
+        categories = split_ai_categories(raw_category)
+
+        if categories:
+            assign_categories_to_note(db, db_note, categories)
+        # ---------------------------------------------------
+
         db.commit()
         db.refresh(db_note)
     return db_note
+
 
 
 

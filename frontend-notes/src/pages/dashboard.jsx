@@ -12,21 +12,22 @@ const Dashboard = () => {
   const [activeNote, setActiveNote] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [bufferText, setBufferText] = useState(""); 
+  const [bufferText, setBufferText] = useState("");
   const [recording, setRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
   const [audioURL, setAudioURL] = useState("");
   const [transcribing, setTranscribing] = useState(false);
 
-  const [summary, setSummary] = useState(""); 
-  const [category, setCategory] = useState(""); 
+  const [summary, setSummary] = useState("");
+  const [category, setCategory] = useState("");
   const [summarizing, setSummarizing] = useState(false); // ✅ loading state
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const wsRef = useRef(null);
-  const quillRef = useRef(null); 
+  const quillRef = useRef(null);
   const autoStopTimeoutRef = useRef(null);
+  const [searchCategory, setSearchCategory] = useState("");
 
   const token = localStorage.getItem("access_token");
 
@@ -58,9 +59,8 @@ const Dashboard = () => {
     setBufferText("");
     setAudioBlob(null);
     setAudioURL(note.voice_message || "");
-    setSummary(""); 
-    setCategory(""); 
-    
+    setSummary(note.summary || "");      //  note se load karo
+    setCategory(note.categories?.join(", ") || "");  //  agar multiple categories hain
   };
 
   // ==================== Summarize Function ====================
@@ -102,6 +102,8 @@ const Dashboard = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content || "");
+    formData.append("summary", summary || "");   // ✅ add summary
+    formData.append("category", category || "");
     if (audioBlob) formData.append("file", audioBlob, "voice.webm");
 
     try {
@@ -135,7 +137,8 @@ const Dashboard = () => {
       setBufferText("");
       setAudioBlob(null);
       setAudioURL(savedNote.voice_message || "");
-      setSummary(""); 
+      setSummary(savedNote.summary || "");      // ✅ update state
+      setCategory(savedNote.category || "");
     } catch (error) {
       console.error(error);
       toast.error("Failed to save note");
@@ -155,7 +158,7 @@ const Dashboard = () => {
       setBufferText("");
       setAudioBlob(null);
       setAudioURL("");
-      setSummary(""); 
+      setSummary("");
       toast.success("Note deleted");
     } catch (error) {
       console.error(error);
@@ -165,7 +168,7 @@ const Dashboard = () => {
 
   // ================= SINGLE MIC BUTTON LOGIC =================
   const startTranscription = async () => {
-    if (recording) return; 
+    if (recording) return;
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -261,6 +264,11 @@ const Dashboard = () => {
       editor.setSelection(length, length);
     }
   };
+  const filteredNotes = notes.filter((note) =>
+    note.categories.some((cat) =>
+      cat.toLowerCase().includes(searchCategory.toLowerCase())
+    )
+  );
 
   return (
     <div className="flex h-screen">
@@ -276,14 +284,36 @@ const Dashboard = () => {
             setBufferText("");
             setAudioBlob(null);
             setAudioURL("");
-            setSummary(""); 
-            setCategory("");  
+            setSummary("");
+            setCategory("");
           }}
         >
           + New Note
         </button>
+        <input
+          type="text"
+          placeholder=" Search by category..."
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+          className="
+    w-full
+    p-2
+    mb-3
+    rounded-lg
+    border
+    border-gray-300
+    text-black
+    placeholder-gray-500
+    focus:outline-none
+    focus:ring-2
+    focus:ring-yellow-500
+    focus:border-yellow-500
+    transition
+    duration-200
+  "
+        />
 
-        {notes.map((n) => (
+        {filteredNotes.map((n) => (
           <div
             key={n.id}
             className="flex justify-between p-2 cursor-pointer hover:bg-gray-700"
@@ -314,9 +344,8 @@ const Dashboard = () => {
 
           <button
             onClick={recording ? stopTranscription : startTranscription}
-            className={`absolute right-3 top-1 p-2 rounded-full text-white shadow-lg ${
-              recording ? "bg-red-600" : "bg-green-600"
-            }`}
+            className={`absolute right-3 top-1 p-2 rounded-full text-white shadow-lg ${recording ? "bg-red-600" : "bg-green-600"
+              }`}
             title={recording ? "Stop Recording & Transcription" : "Start Recording & Transcription"}
           >
             {recording ? "🎤" : "🎙️"}
@@ -326,26 +355,25 @@ const Dashboard = () => {
         <button
           onClick={handleSummarize}
           disabled={summarizing} // disable while loading
-          className={`mt-2 text-white px-6 py-2 rounded ${
-            summarizing ? "bg-gray-400 cursor-not-allowed" : "bg-yellow-600"
-          }`}
+          className={`mt-2 text-white px-6 py-2 rounded ${summarizing ? "bg-gray-400 cursor-not-allowed" : "bg-yellow-600"
+            }`}
         >
           {summarizing ? "Summarizing..." : "Summarize"}
         </button>
 
         {summary && (
-  <div className="mt-3 p-3 border rounded bg-gray-100">
-    <h3 className="font-bold mb-1">Summary:</h3>
-    <p>{summary}</p>
-    
-    {category && (
-      <>
-        <h3 className="font-bold mt-2 mb-1">Category:</h3>
-        <p>{category}</p>
-      </>
-    )}
-  </div>
-)}
+          <div className="mt-3 p-3 border rounded bg-gray-100">
+            <h3 className="font-bold mb-1">Summary:</h3>
+            <p>{summary}</p>
+
+            {category && (
+              <>
+                <h3 className="font-bold mt-2 mb-1">Category:</h3>
+                <p>{category}</p>
+              </>
+            )}
+          </div>
+        )}
 
         {audioURL && (
           <audio key={audioURL} controls src={audioURL} className="mt-3 w-full" />
